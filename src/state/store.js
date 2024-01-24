@@ -8,11 +8,13 @@ const initialState = {
   toCurrency: '',
   input: 0,
   result: '0.00',
-  currentPairRate: converter.getRate('USD', 'GBP'),
+  currentPairRateString: '',
   lastUpdated: converter.getLastUpdated(),
+  selectedCurrenciesList: converter.getSelectedCurrenciesList(),
 }
+
 const converterSlice = createSlice({
-  name: 'converterState',
+  name: 'converterSlice',
   initialState,
   reducers: {
     changeFromCurrency: (state, action) => {
@@ -28,20 +30,24 @@ const converterSlice = createSlice({
       state.result = action.payload
     },
     convert: (state) => {
+      if (!state.fromCurrency || !state.toCurrency) return
       state.result = converter.convert(
         state.input,
         state.fromCurrency,
         state.toCurrency
       )
     },
-    setCurrentPairRate: (state) => {
-      state.currentPairRate = converter.getRate(
-        state.fromCurrency,
+    setCurrentPairRateString: (state) => {
+      // Get actual rate based on chosen currencies
+      let rate = converter.getRate(state.fromCurrency, state.toCurrency)
+      if (!state.fromCurrency || !state.toCurrency) return
+      // Construct a string
+      state.currentPairRateString = `1 ${state.fromCurrency} = ${1 * rate} ${
         state.toCurrency
-      )
+      }`
     },
     switchPair: (state) => {
-      const { input, fromCurrency, toCurrency } = state
+      const { fromCurrency, toCurrency } = state
 
       // Swap the values
       state.fromCurrency = toCurrency
@@ -56,7 +62,7 @@ export const {
   changeFromCurrency,
   changeToCurrency,
   convert,
-  setCurrentPairRate,
+  setCurrentPairRateString,
   switchPair,
 } = converterSlice.actions
 
