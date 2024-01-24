@@ -27,7 +27,7 @@ const CurrencyPicker = (props) => {
     dispatch(convert())
   }
 
-  // Render 5 selected options with exception of chosen one
+  // Render 5 divs with same class with exception of chosen one
   return (
     <div className="currency-picker">
       {selectedCurrenciesList.map((currency) => {
