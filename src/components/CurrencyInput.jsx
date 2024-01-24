@@ -2,8 +2,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { convert, changeInput } from '../state/store'
 
 const CurrencyInput = () => {
-  const { fromCurrency, toCurrency, currentPairRate } = useSelector(
-    (state) => state
+  const currentPairRateString = useSelector(
+    (state) => state.currentPairRateString
   )
 
   const dispatch = useDispatch()
@@ -27,16 +27,15 @@ const CurrencyInput = () => {
   }
 
   return (
-    <div className="currency-input">
+    <div className="currency-display">
       <input
         type="text"
-        className="currency-input-textfield"
+        className="currency-display-textfield"
         placeholder="0"
         onChange={(e) => handleConvert(e)}
       />
-      <div className="currency-input-rate josefin-sans">
-        {currentPairRate &&
-          `1 ${fromCurrency} = ${1 * currentPairRate} ${toCurrency}`}
+      <div className="currency-display-rate josefin-sans">
+        {currentPairRateString ? currentPairRateString : null}
       </div>
     </div>
   )
