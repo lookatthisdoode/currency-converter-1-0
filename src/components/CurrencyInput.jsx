@@ -31,7 +31,7 @@ const CurrencyInput = () => {
       <input
         type="text"
         className="currency-input-textfield"
-        placeholder="0.00"
+        placeholder="0"
         onChange={(e) => handleConvert(e)}
       />
       <div className="currency-input-rate josefin-sans">
