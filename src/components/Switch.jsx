@@ -1,12 +1,12 @@
 import { useDispatch } from 'react-redux'
 import arrows from '../assets/arrows.svg'
-import { switchPair, convert, setCurrentPairRate } from '../state/store'
+import { switchPair, convert, setCurrentPairRateString } from '../state/store'
 
 const Switch = () => {
   const dispatch = useDispatch()
   const handleSwitch = () => {
     dispatch(switchPair())
-    dispatch(setCurrentPairRate())
+    dispatch(setCurrentPairRateString())
     dispatch(convert())
   }
 
