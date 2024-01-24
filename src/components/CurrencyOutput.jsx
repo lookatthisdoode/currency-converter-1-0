@@ -1,13 +1,13 @@
 import { useSelector } from 'react-redux'
 
-const CurrencyInput = () => {
+const CurrencyOutput = () => {
   const result = useSelector((state) => state.result)
 
   return (
-    <div className="currency-input">
+    <div className="currency-display">
       <input
         type="text"
-        className="currency-input-textfield"
+        className="currency-display-textfield"
         placeholder={result}
         readOnly
       />
@@ -15,4 +15,4 @@ const CurrencyInput = () => {
   )
 }
 
-export default CurrencyInput
+export default CurrencyOutput
