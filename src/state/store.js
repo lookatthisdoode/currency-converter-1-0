@@ -7,7 +7,7 @@ const initialState = {
   fromCurrency: '',
   toCurrency: '',
   input: 0,
-  result: 0,
+  result: '0.00',
   currentPairRate: converter.getRate('USD', 'GBP'),
   lastUpdated: converter.getLastUpdated(),
 }
