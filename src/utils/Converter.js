@@ -1,7 +1,11 @@
+import selectedCurrenciesList from '../../converter.config'
+
+// Takes care of API, data formatting, converting
+
 class Converter {
   constructor() {
-    this.date = '20240124'
-    this.API_URL = `https://data.kurzy.cz/json/meny/b[1]den[${this.date}].json`
+    this.API_URL = `https://data.kurzy.cz/json/meny/b[1].json`
+    this.selectedCurrenciesList = selectedCurrenciesList
     this.rates = {}
     this.updateRates()
     this.lastUpdated = new Date().toLocaleString('en-US', {
@@ -13,15 +17,13 @@ class Converter {
     try {
       const response = await fetch(this.API_URL)
       const data = await response.json()
-
-      const selectedCurrencies = ['USD', 'EUR', 'PLN', 'GBP', 'JPY']
       const exchangeRates = {}
 
       // Constructing fresh rates object
-      for (let baseCurrency of selectedCurrencies) {
+      for (let baseCurrency of this.selectedCurrenciesList) {
         exchangeRates[baseCurrency] = {}
 
-        for (let targetCurrency of selectedCurrencies) {
+        for (let targetCurrency of this.selectedCurrenciesList) {
           const exchangeRate =
             data.kurzy[baseCurrency].dev_stred /
             data.kurzy[targetCurrency].dev_stred
@@ -55,6 +57,10 @@ class Converter {
 
   getLastUpdated() {
     return this.lastUpdated
+  }
+
+  getSelectedCurrenciesList() {
+    return this.selectedCurrenciesList
   }
 
   trimToMoneyFormat(number) {
